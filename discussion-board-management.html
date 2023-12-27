@@ -1,0 +1,132 @@
+<!-- discussion_board_management.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>討論版管理</title>
+    <style>
+         table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        /* 添加你需要的樣式 */
+    </style>
+</head>
+<body>
+    <h2>文章管理</h2>
+    <table id="articleTable">
+        <thead>
+            <tr>
+                <th>文章編號</th>
+                <th>文章標題</th>
+                <th>閱讀人數</th>
+                <th>撰寫時間</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>文章A</td>
+                <td>1000</td>
+                <td>2023-01-01</td>
+                <td><button onclick="editArticle('001')">編輯</button> <button onclick="deleteArticle('001')">刪除</button></td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>文章B</td>
+                <td>800</td>
+                <td>2023-02-15</td>
+                <td><button onclick="editArticle('002')">編輯</button> <button onclick="deleteArticle('002')">刪除</button></td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>文章C</td>
+                <td>1200</td>
+                <td>2023-03-10</td>
+                <td><button onclick="editArticle('003')">編輯</button> <button onclick="deleteArticle('003')">刪除</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <section id="discussionList">
+        <!-- 這裡將顯示討論列表 -->
+        <ul id="discussions"></ul>
+    </section>
+
+    <script>
+        // 虛構的討論數據，實際上應該從後端獲取
+        let discussions = [
+            { id: 1, topic: 'Discussion A', content: 'Content of Discussion A' },
+            { id: 2, topic: 'Discussion B', content: 'Content of Discussion B' }
+        ];
+
+        // 初始化討論列表
+        function initDiscussionList() {
+            const discussionList = document.getElementById('discussions');
+            discussionList.innerHTML = '';
+
+            discussions.forEach(discussion => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `編號: ${discussion.id}, 主題: ${discussion.topic}, 內容: ${discussion.content}`;
+                discussionList.appendChild(listItem);
+            });
+        }
+
+        // 新增討論
+        function addDiscussion() {
+            const topic = document.getElementById('topic').value;
+            const content = document.getElementById('content').value;
+
+            if (topic && content) {
+                const newDiscussion = {
+                    id: discussions.length + 1,
+                    topic: topic,
+                    content: content
+                };
+
+                discussions.push(newDiscussion);
+                initDiscussionList();
+                clearForm();
+            } else {
+                alert('請填寫主題和內容。');
+            }
+        }
+
+        // 刪除討論
+        function deleteDiscussion() {
+            const discussionId = document.getElementById('discussionId').value;
+
+            if (discussionId) {
+                discussions = discussions.filter(discussion => discussion.id !== parseInt(discussionId, 10));
+                initDiscussionList();
+                clearForm();
+            } else {
+                alert('請填寫要刪除的討論編號。');
+            }
+        }
+
+        // 清空表單
+        function clearForm() {
+            document.getElementById('discussionId').value = '';
+            document.getElementById('topic').value = '';
+            document.getElementById('content').value = '';
+        }
+
+        // 頁面載入時初始化
+        initDiscussionList();
+    </script>
+</body>
+</html>

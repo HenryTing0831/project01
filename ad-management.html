@@ -1,0 +1,148 @@
+
+<!-- ad_management.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>廣告管理</title>
+    <style>
+        /* 添加你需要的樣式 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>廣告管理</h1>
+    <table id="adTable">
+        <thead>
+            <tr>
+                <th>廣告名稱</th>
+                <th>金額</th>
+                <th>上架日期</th>
+                <th>下架日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>廣告A</td>
+                <td>$100.00</td>
+                <td>2023-01-01</td>
+                <td>2023-02-01</td>
+                <td><button onclick="editAd('廣告A')">編輯</button> <button onclick="deleteAd('廣告A')">刪除</button></td>
+            </tr>
+            <tr>
+                <td>廣告B</td>
+                <td>$80.00</td>
+                <td>2023-02-15</td>
+                <td>2023-03-15</td>
+                <td><button onclick="editAd('廣告B')">編輯</button> <button onclick="deleteAd('廣告B')">刪除</button></td>
+            </tr>
+            <tr>
+                <td>廣告C</td>
+                <td>$120.00</td>
+                <td>2023-03-10</td>
+                <td>2023-04-10</td>
+                <td><button onclick="editAd('廣告C')">編輯</button> <button onclick="deleteAd('廣告C')">刪除</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <section id="adList">
+        <!-- 這裡將顯示廣告列表 -->
+        <ul id="ads"></ul>
+    </section>
+
+    <section id="adForm">
+        <h2>廣告表單</h2>
+        <label for="adId">廣告編號:</label>
+        <input type="text" id="adId" name="adId" readonly>
+
+        <label for="adTitle">廣告標題:</label>
+        <input type="text" id="adTitle" name="adTitle" required>
+
+        <label for="adContent">廣告內容:</label>
+        <textarea id="adContent" name="adContent" required></textarea>
+
+        <button onclick="addAd()">新增廣告</button>
+      
+    </section>
+
+    <script>
+        // 虛構的廣告數據，實際上應該從後端獲取
+        let ads = [
+            { id: 1, title: 'Ad A', content: 'Content of Ad A' },
+            { id: 2, title: 'Ad B', content: 'Content of Ad B' }
+        ];
+
+        // 初始化廣告列表
+        function initAdList() {
+            const adList = document.getElementById('ads');
+            adList.innerHTML = '';
+
+            ads.forEach(ad => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `編號: ${ad.id}, 標題: ${ad.title}, 內容: ${ad.content}`;
+                adList.appendChild(listItem);
+            });
+        }
+
+        // 新增廣告
+        function addAd() {
+            const title = document.getElementById('adTitle').value;
+            const content = document.getElementById('adContent').value;
+
+            if (title && content) {
+                const newAd = {
+                    id: ads.length + 1,
+                    title: title,
+                    content: content
+                };
+
+                ads.push(newAd);
+                initAdList();
+                clearForm();
+            } else {
+                alert('請填寫廣告標題和內容。');
+            }
+        }
+
+        // 刪除廣告
+        function deleteAd() {
+            const adId = document.getElementById('adId').value;
+
+            if (adId) {
+                ads = ads.filter(ad => ad.id !== parseInt(adId, 10));
+                initAdList();
+                clearForm();
+            } else {
+                alert('請填寫要刪除的廣告編號。');
+            }
+        }
+
+        // 清空表單
+        function clearForm() {
+            document.getElementById('adId').value = '';
+            document.getElementById('adTitle').value = '';
+            document.getElementById('adContent').value = '';
+        }
+
+        // 頁面載入時初始化
+        initAdList();
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!-- report_notifications.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>檢舉通知</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>檢舉表單</h2>
+    <table id="reportTable">
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>檢舉人</th>
+                <th>被檢舉人</th>
+                <th>處理情形</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>檢舉者A</td>
+                <td>被檢舉者A</td>
+                <td>處理中</td>
+                <td><button onclick="editReport('001')">編輯</button> <button onclick="deleteReport('001')">刪除</button></td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>檢舉者B</td>
+                <td>被檢舉者B</td>
+                <td>已處理</td>
+                <td><button onclick="editReport('002')">編輯</button> <button onclick="deleteReport('002')">刪除</button></td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>檢舉者C</td>
+                <td>被檢舉者C</td>
+                <td>未處理</td>
+                <td><button onclick="editReport('003')">編輯</button> <button onclick="deleteReport('003')">刪除</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>查詢檢舉</h2>
+
+    <label for="reportId">請輸入檢舉編號:</label>
+    <input type="text" id="reportId">
+    <button onclick="searchReport()">查詢</button>
+
+    <script>
+        function editReport(reportId) {
+            // 在這裡添加編輯檢舉的相應邏輯
+            alert('編輯檢舉編號：' + reportId);
+        }
+
+        function deleteReport(reportId) {
+            // 在這裡添加刪除檢舉的相應邏輯
+            alert('刪除檢舉編號：' + reportId);
+        }
+    </script>
+    <section id="reportList">
+        <!-- 這裡將顯示檢舉通知列表 -->
+        <ul id="reports"></ul>
+    </section>
+
+    
+    <script>
+        // 虛構的檢舉通知數據，實際上應該從後端獲取
+        let reports = [
+            { id: 1, title: 'Report A', content: 'Content of Report A' },
+            { id: 2, title: 'Report B', content: 'Content of Report B' }
+        ];
+
+        // 初始化檢舉通知列表
+        function initReportList() {
+            const reportList = document.getElementById('reports');
+            reportList.innerHTML = '';
+
+            reports.forEach(report => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `編號: ${report.id}, 標題: ${report.title}, 內容: ${report.content}`;
+                reportList.appendChild(listItem);
+            });
+        }
+
+        // 發送檢舉通知
+        function sendReport() {
+            const title = document.getElementById('reportTitle').value;
+            const content = document.getElementById('reportContent').value;
+
+            if (title && content) {
+                const newReport = {
+                    id: reports.length + 1,
+                    title: title,
+                    content: content
+                };
+
+                reports.push(newReport);
+                initReportList();
+                clearForm();
+            } else {
+                alert('請填寫檢舉標題和內容。');
+            }
+        }
+
+        // 刪除檢舉通知
+        function deleteReport() {
+            const reportId = document.getElementById('reportId').value;
+
+            if (reportId) {
+                reports = reports.filter(report => report.id !== parseInt(reportId, 10));
+                initReportList();
+                clearForm();
+            } else {
+                alert('請填寫要刪除的檢舉編號。');
+            }
+        }
+
+        // 清空表單
+        function clearForm() {
+            document.getElementById('reportId').value = '';
+            document.getElementById('reportTitle').value = '';
+            document.getElementById('reportContent').value = '';
+        }
+
+        // 頁面載入時初始化
+        initReportList();
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!-- user_management.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用戶管理</title>
+    <style>
+         table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        /* 添加你需要的樣式 */
+    </style>
+</head>
+<body>
+        <h2>用戶清單</h2>
+        <h4>個人用戶</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>編號</th>
+                    <th>姓名</th>
+                    <th>帳號</th>
+                    <th>手機</th>
+                    <th>生日</th>
+                    <th>檢舉次數</th>
+                    <th>註冊日期</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>John Doe</td>
+                    <td>johndoe123@gmail.com</td>
+                    <td>123-456-7890</td>
+                    <td>1990-01-01</td>
+                    <td>3</td>
+                    <td>2023-01-15</td>
+                    <td> <button onclick="editRow(this)">編輯</button><button >刪除</button></td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Jane Smith</td>
+                    <td>janesmith456@gmail.com</td>
+                    <td>987-654-3210</td>
+                    <td>1985-05-15</td>
+                    <td>1</td>
+                    <td>2023-02-20</td>
+                    <td>
+                        <button onclick="editRow(this)">編輯</button>
+                        <button >刪除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>Bob Johnson</td>
+                    <td>bob123@gmail.com</td>
+                    <td>555-123-4567</td>
+                    <td>1978-09-30</td>
+                    <td>0</td>
+                    <td>2023-03-10</td>
+                    <td>
+                        <button onclick="editRow(this)">編輯</button>
+                        <button >刪除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>004</td>
+                    <td>Alice Wang</td>
+                    <td>alicew@gmail.com</td>
+                    <td>333-876-5432</td>
+                    <td>1995-12-05</td>
+                    <td>5</td>
+                    <td>2023-04-22</td>
+                    <td>
+                        <button onclick="editRow(this)">編輯</button>
+                        <button >刪除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>005</td>
+                    <td>David Chen</td>
+                    <td>davidc@gmail.com</td>
+                    <td>777-234-5678</td>
+                    <td>1982-08-18</td>
+                    <td>2</td>
+                    <td>2023-05-08</td>
+                    <td>
+                        <button onclick="editRow(this)">編輯</button>
+                        <button >刪除</button>
+                    </td>
+                </tr>
+               
+            </tbody>
+        </table>
+
+        <h4>企業用戶</h4>
+        <table id="companyTable">
+            <thead>
+                <tr>
+                    <th>企業編號</th>
+                    <th>企業名稱</th>
+                    <th>統一編號</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>企業A</td>
+                    <td>12345678</td>
+                    <td><button onclick="editCompany('001')">編輯</button> <button onclick="deleteCompany('001')">刪除</button></td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>企業B</td>
+                    <td>87654321</td>
+                    <td><button onclick="editCompany('002')">編輯</button> <button onclick="deleteCompany('002')">刪除</button></td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>企業C</td>
+                    <td>98765432</td>
+                    <td><button onclick="editCompany('003')">編輯</button> <button onclick="deleteCompany('003')">刪除</button></td>
+                </tr>
+            </tbody>
+        </table>
+    
+    <section id="userList">
+        <!-- 這裡將顯示用戶列表 -->
+        <ul id="users"></ul>
+    </section>
+    <section id="userForm">
+        <h2>查詢用戶</h2>
+
+    <label for="username">請輸入用戶名稱:</label>
+    <input type="text" id="username">
+    <button onclick="searchUser()">查詢</button>
+    </section>
+
+    <script>
+        // 虛構的用戶數據，實際上應該從後端獲取
+        let users = [
+            { id: 1, username: 'John Doe', email: 'john@example.com' },
+            { id: 2, username: 'Jane Doe', email: 'jane@example.com' }
+        ];
+
+        // 初始化用戶列表
+        function initUserList() {
+            const userList = document.getElementById('users');
+            userList.innerHTML = '';
+
+            users.forEach(user => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `姓名: ${user.username}, Email: ${user.email}`;
+                userList.appendChild(listItem);
+            });
+        }
+
+        // 新增用戶
+        function addUser() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+
+            if (username && email) {
+                const newUser = {
+                    id: users.length + 1,
+                    username: username,
+                    email: email
+                };
+
+                users.push(newUser);
+                initUserList();
+                clearForm();
+            } else {
+                alert('請填寫用戶名稱和Email。');
+            }
+        }
+
+        // 刪除用戶
+        function deleteUser() {
+            const username = document.getElementById('username').value;
+
+            if (username) {
+                users = users.filter(user => user.username !== username);
+                initUserList();
+                clearForm();
+            } else {
+                alert('請填寫要刪除的用戶名稱。');
+            }
+        }
+
+        // 清空表單
+        function clearForm() {
+            document.getElementById('username').value = '';
+            document.getElementById('email').value = '';
+        }
+
+        // 頁面載入時初始化
+        initUserList();
+    </script>
+</body>
+</html>

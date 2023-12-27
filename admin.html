@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台管理系統</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #e74c3c;
+            /* 亮紅色 */
+            color: white;
+            padding: 10px;
+            text-align: right;
+        }
+
+        main {
+            display: flex;
+        }
+
+        nav {
+            background-color: #922b21;
+            /* 暗紅色 */
+            color: white;
+            padding: 20px;
+            width: 150px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            margin-bottom: 10px;
+            border: 1px solid white;
+            /* 外框線白色 */
+            cursor: pointer;
+            text-align: center;
+            /* 將文字置中 */
+            border-radius: 6px;
+            /* 圆角 */
+        }
+
+        section {
+            flex: 1;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #e74c3c;
+            /* 亮紅色 */
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        #admin-info {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <span>管理者名稱：John Doe</span>
+            <span id="admin-info"></span>
+            <button onclick="logout()">登出</button>
+        </div>
+    </header>
+
+    <main>
+        <nav>
+            <ul>
+                <li><a href="#user-management" onclick="showContent('用戶管理')">用戶管理</a></li>
+                <li><a href="#user-level-management" onclick="showContent('用戶等級管理')">用戶等級管理</a></li>
+                <li><a href="#order-information" onclick="showContent('訂單資訊')">訂單資訊</a></li>
+                <li><a href="#ad-management" onclick="showContent('廣告管理')">廣告管理</a></li>
+                <li><a href="#report-notifications" onclick="showContent('檢舉通知')">檢舉通知</a></li>
+                <li><a href="#send-notifications" onclick="showContent('發送通知')">發送通知</a></li>
+                <li><a href="#discussion-board-management" onclick="showContent('討論版管理')">討論版管理</a></li>
+            </ul>
+        </nav>
+
+        <section id="content">
+            <!-- 在這裡添加各個區域的內容 -->
+            <h1>歡迎來到後台管理系統</h1>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2023 後台管理系統
+    </footer>
+
+    <script>
+        // 模擬管理者權限級別
+        var adminPermissionLevel = '高級管理者';
+
+        // 在頁面載入時顯示管理者的權限級別
+        document.getElementById('admin-info').innerText = '權限級別：' + adminPermissionLevel;
+
+        function logout() {
+            // 在這裡添加登出的相應邏輯，例如導向登入頁面或執行登出 API 請求
+            alert('登出成功！');
+        }
+
+        async function showContent(contentName) {
+            var contentElement = document.getElementById('content');
+
+            // 根據點擊的功能切換不同的 HTML 內容
+            switch (contentName) {
+                case '用戶管理':
+                    try {
+                        const response = await fetch('user_management.html');
+                        const data = await response.text();
+                        contentElement.innerHTML = data;
+
+                    } catch (error) {
+                        console.error('無法加載用戶管理內容：', error);
+                    }
+                    break;
+                case '用戶等級管理':
+                    try {
+                        const response = await fetch('user-level-management.html');
+                        const data = await response.text();
+                        contentElement.innerHTML = data;
+
+                    } catch (error) {
+                        console.error('無法加載用戶管理內容：', error);
+                    }
+                    break;
+                case '訂單資訊':
+                    try {
+                        const response = await fetch('order-information.html');
+                        const data = await response.text();
+                        contentElement.innerHTML = data;
+
+                    } catch (error) {
+                        console.error('無法加載用戶管理內容：', error);
+                    }
+                    break;
+                case '廣告管理':
+                    try {
+                        const response = await fetch('ad-management.html');
+                        const data = await response.text();
+                        contentElement.innerHTML = data;
+
+                    } catch (error) {
+                        console.error('無法加載用戶管理內容：', error);
+                    }
+                    break;
+                case '檢舉通知':
+                    try {
+                        const response = await fetch('report-notifications.html');
+                        const data = await response.text();
+                        contentElement.innerHTML = data;
+
+                    } catch (error) {
+                        console.error('無法加載用戶管理內容：', error);
+                    }
+                    break;
+                case '發送通知':
+                    try {
+                        const response = await fetch('send-notifications.html');
+                        const data = await response.text();
+                        contentElement.innerHTML = data;
+
+                    } catch (error) {
+                        console.error('無法加載用戶管理內容：', error);
+                    }
+                    break;
+                case '討論版管理':
+                    try {
+                        const response = await fetch('discussion-board-management.html');
+                        const data = await response.text();
+                        contentElement.innerHTML = data;
+
+                    } catch (error) {
+                        console.error('無法加載用戶管理內容：', error);
+                    }
+                    break;
+
+
+
+                // 在這裡添加其他功能的 case
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!-- user_level_management.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員等級管理</title>
+    <style>
+        /* 添加你需要的樣式 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        input, button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>用戶等級管理</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>會員編號</th>
+                <th>姓名</th>
+                <th>等級</th>
+                <th>操作</th>
+            </tr>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>John Doe</td>
+                <td>Gold</td>
+                <td>
+                    <button onclick="editRow(this)">編輯</button>
+                    <button >刪除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>Jane Smith</td>
+                <td>Silver</td>
+                <td>
+                    <button onclick="editRow(this)">編輯</button>
+                    <button >刪除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>Bob Johnson</td>
+                <td>Platinum</td>
+                <td>
+                    <button onclick="editRow(this)">編輯</button>
+                    <button >刪除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>004</td>
+                <td>Alice Williams</td>
+                <td>Gold</td>
+                <td>
+                    <button onclick="editRow(this)">編輯</button>
+                    <button >刪除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>005</td>
+                <td>Charlie Brown</td>
+                <td>Silver</td>
+                <td>
+                    <button onclick="editRow(this)">編輯</button>
+                    <button >刪除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form id="userDataForm">
+        <label for="memberId">會員編號:</label>
+        <input type="text" id="memberId" required>
+
+        <label for="name">姓名:</label>
+        <input type="text" id="name" required>
+
+        <label for="level">等級:</label>
+        <input type="text" id="level" required>
+
+        <button type="button" onclick="addData()">新增資料</button>
+    </form>
+
+    <script>
+        function addData() {
+            var memberId = document.getElementById('memberId').value;
+            var name = document.getElementById('name').value;
+            var level = document.getElementById('level').value;
+
+            var table = document.querySelector('table tbody');
+            var newRow = table.insertRow();
+
+            var cellIndex = 0;
+
+            var cell = newRow.insertCell(cellIndex++);
+            cell.textContent = memberId;
+
+            cell = newRow.insertCell(cellIndex++);
+            cell.textContent = name;
+
+            cell = newRow.insertCell(cellIndex++);
+            cell.textContent = level;
+
+            // 清空表單
+            document.getElementById('userDataForm').reset();
+        }
+    </script>
+</body>
+</html>

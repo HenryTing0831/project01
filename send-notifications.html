@@ -1,0 +1,99 @@
+<!-- send_notifications.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>發送通知</title>
+    <style>
+        /* 添加你需要的樣式 */
+    </style>
+</head>
+<body>
+    <h1>發送通知</h1>
+
+    <section id="notificationList">
+        <!-- 這裡將顯示通知列表 -->
+        <ul id="notifications"></ul>
+    </section>
+
+    <section id="notificationForm">
+        <h2>通知表單</h2>
+        <label for="notificationId">通知編號:</label>
+        <input type="text" id="notificationId" name="notificationId" readonly>
+
+        <label for="notificationTitle">通知標題:</label>
+        <input type="text" id="notificationTitle" name="notificationTitle" required>
+
+        <label for="notificationContent">通知內容:</label>
+        <textarea id="notificationContent" name="notificationContent" required></textarea>
+
+        <button onclick="sendNotification()">發送通知</button>
+        <button onclick="deleteNotification()">刪除通知</button>
+    </section>
+
+    <script>
+        // 虛構的通知數據，實際上應該從後端獲取
+        let notifications = [
+            { id: 1, title: 'Notification A', content: 'Content of Notification A' },
+            { id: 2, title: 'Notification B', content: 'Content of Notification B' }
+        ];
+
+        // 初始化通知列表
+        function initNotificationList() {
+            const notificationList = document.getElementById('notifications');
+            notificationList.innerHTML = '';
+
+            notifications.forEach(notification => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `編號: ${notification.id}, 標題: ${notification.title}, 內容: ${notification.content}`;
+                notificationList.appendChild(listItem);
+            });
+        }
+
+        // 發送通知
+        function sendNotification() {
+            const title = document.getElementById('notificationTitle').value;
+            const content = document.getElementById('notificationContent').value;
+
+            if (title && content) {
+                const newNotification = {
+                    id: notifications.length + 1,
+                    title: title,
+                    content: content
+                };
+
+                notifications.push(newNotification);
+                initNotificationList();
+                clearForm();
+            } else {
+                alert('請填寫通知標題和內容。');
+            }
+        }
+
+        // 刪除通知
+        function deleteNotification() {
+            const notificationId = document.getElementById('notificationId').value;
+
+            if (notificationId) {
+                notifications = notifications.filter(notification => notification.id !== parseInt(notificationId, 10));
+                initNotificationList();
+                clearForm();
+            } else {
+                alert('請填寫要刪除的通知編號。');
+            }
+        }
+
+        // 清空表單
+        function clearForm() {
+            document.getElementById('notificationId').value = '';
+            document.getElementById('notificationTitle').value = '';
+            document.getElementById('notificationContent').value = '';
+        }
+
+        // 頁面載入時初始化
+        initNotificationList();
+    </script>
+</body>
+</html>
