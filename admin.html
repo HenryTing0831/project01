@@ -7,6 +7,7 @@
     <title>後台管理系統</title>
     <style>
         body {
+
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
@@ -52,6 +53,9 @@
             /* 將文字置中 */
             border-radius: 6px;
             /* 圆角 */
+        }
+        nav a:hover{
+            color: #ffc90e;
         }
 
         section {
@@ -125,7 +129,7 @@
             switch (contentName) {
                 case '用戶管理':
                     try {
-                        const response = await fetch('user_management.html');
+                        const response = await fetch('./user_management/user_management.html');
                         const data = await response.text();
                         contentElement.innerHTML = data;
 
@@ -135,7 +139,7 @@
                     break;
                 case '用戶等級管理':
                     try {
-                        const response = await fetch('user-level-management.html');
+                        const response = await fetch('./user-level-management/user-level-management.html');
                         const data = await response.text();
                         contentElement.innerHTML = data;
 

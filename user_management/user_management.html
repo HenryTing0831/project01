@@ -7,6 +7,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用戶管理</title>
     <style>
+      
+        .title{
+            display: flex;
+        }
+
+    
+
+        .search-container {
+            display: flex;
+            align-items: right;
+            margin: 500px, 50px;
+           
+        }
+
+        .search-box {   
+            margin-left: auto;
+            padding: 8px 32px 8px 8px; /* 調整padding以適應圖標 */
+            border: 1px solid #ccc;
+            border-radius: 20px; /* 將邊角設置為圓角 */
+            width: 120px; /* 設定搜尋框寬度 */
+            align-items: right;
+            margin-right: 30px; /* 添加右邊間隔 */
+        }
          table {
             border-collapse: collapse;
             width: 100%;
@@ -21,12 +44,44 @@
         th {
             background-color: #f2f2f2;
         }
+        .add-button {
+            background-color: blue; /* 背景色為藍色 */
+            color: white; /* 文字顏色為白色 */
+            padding: 10px 20px; /* 設定內邊距 */
+            border: none; /* 移除邊框 */
+            border-radius: 5px; /* 邊角設置為圓角 */
+            cursor: pointer; /* 顯示為手型游標 */
+
+        }
         /* 添加你需要的樣式 */
+        a {
+            text-decoration: none; /* 移除底線 */
+            color: inherit; /* 使用預設文字顏色 */
+        }
+        .header-links h3 {
+            margin-right: 20px; /* 添加右邊間隔 */
+            display: inline-block;
+        }
+      
+       
     </style>
 </head>
 <body>
-        <h2>用戶清單</h2>
-        <h4>個人用戶</h4>
+  
+     
+            <div class="header-links">
+                <h3 class="ind"><a href="#">個人用戶</a></h3>
+                <h3 class="ent"><a href="#">企業用戶</a></h3>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="輸入搜尋內容">
+                <button class="add-button">新增</button>
+            </div>
+            
+       
+        
+    <br>
+    
         <table>
             <thead>
                 <tr>
@@ -143,14 +198,9 @@
         <!-- 這裡將顯示用戶列表 -->
         <ul id="users"></ul>
     </section>
-    <section id="userForm">
-        <h2>查詢用戶</h2>
-
-    <label for="username">請輸入用戶名稱:</label>
-    <input type="text" id="username">
-    <button onclick="searchUser()">查詢</button>
-    </section>
-
+    
+   
+    
     <script>
         // 虛構的用戶數據，實際上應該從後端獲取
         let users = [
